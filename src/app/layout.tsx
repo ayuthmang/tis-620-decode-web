@@ -23,10 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={sarabun.className} suppressHydrationWarning>
         {/* set dark mode */}
-        <Theme appearance="dark">
-          <ThemePanel />
-          {children}
-        </Theme>
+        <Theme appearance="dark">{children}</Theme>
       </body>
     </html>
   );

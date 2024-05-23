@@ -1,19 +1,13 @@
-// hooks function that accept string and return string in tis-620 encoding
-// with encode and decode functionality
-// note: performance optimized
+import iconv from "iconv-lite";
 
 export function useTis620() {
-  const encode = (input: string) => {
-    const encoder = new TextEncoder();
-    const view = encoder.encode(input);
-    return new TextDecoder("windows-874").decode(view);
-  };
+  function utf8ToTis620(utf8: string) {
+    return iconv.encode(utf8, "tis-620").toString("binary");
+  }
 
-  const decode = (input: string) => {
-    const encoder = new TextEncoder();
-    const view = encoder.encode(input);
-    return new TextDecoder("utf-8").decode(view);
-  };
+  function tis620ToUtf8(tis620: string) {
+    return iconv.decode(Buffer.from(tis620, "binary"), "tis-620");
+  }
 
-  return { encode, decode };
+  return { utf8ToTis620, tis620ToUtf8 };
 }

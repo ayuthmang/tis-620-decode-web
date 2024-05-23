@@ -1,27 +1,24 @@
 "use client";
 import {
   Flex,
-  Text,
   Button,
-  ThemePanel,
-  Grid,
   TextArea,
+  Section,
+  Container,
   Box,
-  TextAreaProps,
 } from "@radix-ui/themes";
-import { useFormik, Field, Form, Formik, FormikValues } from "formik";
+import { useFormik, Form, Formik } from "formik";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { z } from "zod";
 import { useTis620 } from "@/hooks/use-tis-620";
 import { toFormikValidationSchema } from "zod-formik-adapter";
-import iconv from "iconv-lite";
 import { css } from "@emotion/css";
 import * as Label from "@radix-ui/react-label";
+import styled from "@emotion/styled";
 
 const textAreaStyle = css`
   height: 100%;
 `;
-console.log({ textAreaStyle });
 
 // zod validation schema
 const EditorSchema = z.object({
@@ -42,95 +39,93 @@ export default function Home() {
     initialValues: initialEditorValues,
     onSubmit: handleSubmit,
   });
+  const { tis620ToUtf8, utf8ToTis620 } = useTis620();
 
   function handleSubmit(values: EditorValues) {
     console.log(values);
   }
 
   function handleOnInputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    console.log("handleOnInputChange");
-    const unicodeOutput = iconv.decode(
-      Buffer.from(e.target.value, "binary"),
-      "tis-620"
-    );
+    const inputVal = e.target.value;
     formik.setValues({
-      input: e.target.value,
-      output: unicodeOutput,
+      input: inputVal,
+      output: tis620ToUtf8(inputVal),
     });
-    console.log({ unicodeOutput });
   }
 
   function handleOnOutputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    console.log("handleOnOutputChange");
-    const tis620Output = iconv.encode(e.target.value, "tis-620");
-    formik.setFieldValue("output", e.target.value);
+    const inputVal = e.target.value;
     formik.setValues({
-      input: tis620Output.toString("utf8"),
-      output: e.target.value,
+      input: utf8ToTis620(inputVal),
+      output: inputVal,
     });
   }
 
-  console.log(formik.values);
   return (
     <>
       <header>
         <nav>Nvabar here</nav>
       </header>
-      <main>
+      <Box height={"100%"}>
         <MaxWidthWrapper>
+          <Section>
+            <Container>
+              <Formik<EditorValues>
+                initialValues={initialEditorValues}
+                onSubmit={handleSubmit}>
+                <Form
+                  onSubmit={formik.handleSubmit}
+                  onReset={formik.handleReset}>
+                  <Flex gap={"6"}>
+                    <Box flexGrow={"1"} flexShrink={"1"} flexBasis={"0"}>
+                      <InputGroup>
+                        <Label.Root htmlFor="input">TIS-620 Input</Label.Root>
+                        <TextAreaStyled
+                          id="input"
+                          className={textAreaStyle}
+                          name="input"
+                          placeholder="Type here..."
+                          onChange={handleOnInputChange}
+                          value={formik.values.input}
+                        />
+                      </InputGroup>
+                    </Box>
 
-        <Box>
-          alkweuj;lakwjef;kl
-        </Box>
+                    <Box
+                      flexGrow={"1"}
+                      flexShrink={"1"}
+                      flexBasis={"0"}
+                      height={"100%"}>
+                      <InputGroup>
+                        <Label.Root htmlFor="output">Unicode Output</Label.Root>
 
-          <Box height="100%">
-            <Formik<EditorValues>
-              initialValues={initialEditorValues}
-              onSubmit={handleSubmit}>
-              <Form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
-                <Flex
-                  display={"flex"}
-                  gap={"3"}
-                  height={"100%"}
-                  width={"100%"}
-                  style={{ width: "100%" }}>
-                  <Label.Root>
-                    TIS-620 Input
-                    <TextArea
-                      name="input"
-                      placeholder="Type here..."
-                      onChange={handleOnInputChange}
-                      value={formik.values.input}
-                    />
-                  </Label.Root>
+                        <TextAreaStyled
+                          id="output"
+                          className={textAreaStyle}
+                          name="output"
+                          placeholder="Type here..."
+                          value={formik.values.output}
+                          onChange={handleOnOutputChange}
+                        />
+                      </InputGroup>
+                    </Box>
+                  </Flex>
 
-                  <Label.Root>
-                    Unicode Output
-                    <TextArea
-                      name="output"
-                      placeholder="Type here..."
-                      value={formik.values.output}
-                      onChange={handleOnOutputChange}
-                    />
-                    {/* <Field
-                      name="output"
-                      component={TextArea}
-                      placeholder="Type here..."
-                      onChange={handleOnOutputChange}
-                      size={2}
-                      height={"100%"}
-                    /> */}
-                  </Label.Root>
-                </Flex>
-
-                <Button type="submit" size={"4"}>
-                  Convert
-                </Button>
-              </Form>
-            </Formik>
-          </Box>
+                  <Button type="submit">Convert</Button>
+                </Form>
+              </Formik>
+            </Container>
+          </Section>
         </MaxWidthWrapper>
-      </main>
+      </Box>
     </>
   );
 }
+
+const InputGroup = ({ children }: { children: React.ReactNode }) => (
+  <Flex direction={"column"}>{children}</Flex>
+);
+
+const TextAreaStyled = styled(TextArea)`
+  height: 100%;
+`;
