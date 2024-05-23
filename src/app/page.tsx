@@ -1,95 +1,136 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import {
+  Flex,
+  Text,
+  Button,
+  ThemePanel,
+  Grid,
+  TextArea,
+  Box,
+  TextAreaProps,
+} from "@radix-ui/themes";
+import { useFormik, Field, Form, Formik, FormikValues } from "formik";
+import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { z } from "zod";
+import { useTis620 } from "@/hooks/use-tis-620";
+import { toFormikValidationSchema } from "zod-formik-adapter";
+import iconv from "iconv-lite";
+import { css } from "@emotion/css";
+import * as Label from "@radix-ui/react-label";
+
+const textAreaStyle = css`
+  height: 100%;
+`;
+console.log({ textAreaStyle });
+
+// zod validation schema
+const EditorSchema = z.object({
+  input: z.string().optional(),
+  output: z.string().optional(),
+});
+
+type EditorValues = z.infer<typeof EditorSchema>;
+
+const initialEditorValues: EditorValues = {
+  input: "",
+  output: "",
+};
 
 export default function Home() {
+  const formik = useFormik<EditorValues>({
+    validationSchema: toFormikValidationSchema(EditorSchema),
+    initialValues: initialEditorValues,
+    onSubmit: handleSubmit,
+  });
+
+  function handleSubmit(values: EditorValues) {
+    console.log(values);
+  }
+
+  function handleOnInputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    console.log("handleOnInputChange");
+    const unicodeOutput = iconv.decode(
+      Buffer.from(e.target.value, "binary"),
+      "tis-620"
+    );
+    formik.setValues({
+      input: e.target.value,
+      output: unicodeOutput,
+    });
+    console.log({ unicodeOutput });
+  }
+
+  function handleOnOutputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    console.log("handleOnOutputChange");
+    const tis620Output = iconv.encode(e.target.value, "tis-620");
+    formik.setFieldValue("output", e.target.value);
+    formik.setValues({
+      input: tis620Output.toString("utf8"),
+      output: e.target.value,
+    });
+  }
+
+  console.log(formik.values);
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <>
+      <header>
+        <nav>Nvabar here</nav>
+      </header>
+      <main>
+        <MaxWidthWrapper>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <Box>
+          alkweuj;lakwjef;kl
+        </Box>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          <Box height="100%">
+            <Formik<EditorValues>
+              initialValues={initialEditorValues}
+              onSubmit={handleSubmit}>
+              <Form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
+                <Flex
+                  display={"flex"}
+                  gap={"3"}
+                  height={"100%"}
+                  width={"100%"}
+                  style={{ width: "100%" }}>
+                  <Label.Root>
+                    TIS-620 Input
+                    <TextArea
+                      name="input"
+                      placeholder="Type here..."
+                      onChange={handleOnInputChange}
+                      value={formik.values.input}
+                    />
+                  </Label.Root>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+                  <Label.Root>
+                    Unicode Output
+                    <TextArea
+                      name="output"
+                      placeholder="Type here..."
+                      value={formik.values.output}
+                      onChange={handleOnOutputChange}
+                    />
+                    {/* <Field
+                      name="output"
+                      component={TextArea}
+                      placeholder="Type here..."
+                      onChange={handleOnOutputChange}
+                      size={2}
+                      height={"100%"}
+                    /> */}
+                  </Label.Root>
+                </Flex>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+                <Button type="submit" size={"4"}>
+                  Convert
+                </Button>
+              </Form>
+            </Formik>
+          </Box>
+        </MaxWidthWrapper>
+      </main>
+    </>
   );
 }

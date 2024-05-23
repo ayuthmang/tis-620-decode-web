@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Sarabun } from "next/font/google";
+import "@radix-ui/themes/styles.css";
 import "./globals.css";
+import { Theme, ThemePanel } from "@radix-ui/themes";
 
-const inter = Inter({ subsets: ["latin"] });
+const sarabun = Sarabun({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin", "thai"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={sarabun.className} suppressHydrationWarning>
+        {/* set dark mode */}
+        <Theme appearance="dark">
+          <ThemePanel />
+          {children}
+        </Theme>
+      </body>
     </html>
   );
 }
