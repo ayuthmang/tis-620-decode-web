@@ -6,7 +6,7 @@ import {
   Container,
   Box,
 } from "@radix-ui/themes";
-import { useFormik, Form, Formik } from "formik";
+import { useFormik, Form, Formik, FastField } from "formik";
 import { z } from "zod";
 import { useTis620 } from "@/hooks/use-tis-620";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -14,6 +14,7 @@ import * as Label from "@radix-ui/react-label";
 import Header from "@/components/Header";
 import styled from "@emotion/styled";
 import TextArea from "@/components/TextArea";
+import Footer from "@/components/Footer";
 
 const EditorSchema = z.object({
   input: z.string(),
@@ -58,7 +59,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Flex height="100%">
+      <Flex display="flex" align="stretch" height="100%">
         <Container size="4" p="4" height="100%">
           <Formik<EditorValues>
             initialValues={initialEditorValues}
