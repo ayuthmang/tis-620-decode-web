@@ -1,18 +1,14 @@
 "use client";
 import {
-  Flex,
-  Button,
-  TextArea as BaseTextArea,
-  Container,
-  Box,
+  Flex, Container,
+  Box
 } from "@radix-ui/themes";
-import { useFormik, Form, Formik, FastField } from "formik";
+import { useFormik, Form, Formik } from "formik";
 import { z } from "zod";
 import { useTis620 } from "@/hooks/use-tis-620";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import * as Label from "@radix-ui/react-label";
 import Header from "@/components/Header";
-import styled from "@emotion/styled";
 import TextArea from "@/components/TextArea";
 import Footer from "@/components/Footer";
 
@@ -97,6 +93,7 @@ export default function Home() {
           </Formik>
         </Container>
       </Flex>
+      <Footer />
     </>
   );
 }
