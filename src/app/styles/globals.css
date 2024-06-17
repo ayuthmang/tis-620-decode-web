@@ -42,7 +42,7 @@ h6 {
 }
 
 :root {
-  /*  */
+  --header-height: 4rem;
 }
 
 html,
