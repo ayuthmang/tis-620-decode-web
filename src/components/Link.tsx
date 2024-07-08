@@ -2,14 +2,15 @@ import React from "react";
 import * as RadixLink from "@radix-ui/themes";
 import NextLink from "next/link";
 
-// type LinkProps that bring type from RadixLink
-type LinkProps = RadixLink.LinkProps;
+type LinkProps = RadixLink.LinkProps & {
+  href: URL | string; // for compatible with NextLink props
+};
 
 export default function Link(props: LinkProps) {
   const { href, children } = props;
 
   return (
-    <NextLink href={href} passHref>
+    <NextLink passHref {...props} href={href}>
       <RadixLink.Link {...props}>{children}</RadixLink.Link>
     </NextLink>
   );

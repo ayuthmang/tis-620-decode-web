@@ -2,34 +2,30 @@
 
 import styled from "@emotion/styled";
 import { Container, Flex } from "@radix-ui/themes";
-// import { Container, Flex, Link } from "@radix-ui/themes";
 import Link from "@/components/Link";
 import { GitHubIcon } from "./Icons";
 import { remToPx } from "@/utils/pixel-to-rem";
+import MaxWidthWrapper from "./MaxWidthWrapper";
 
 export default function Header() {
   return (
-    <Nav>
-      <Container p="4">
-        <Flex align="center" justify="center">
-          <Flex
-            flexGrow="1"
-            direction={"column"}
-            justify={"center"}
-            align={"center"}
-          />
-          <Link href="https://github.com/ayuthmang/tis-620-decode-web" color="amber">
-            <Flex gapX={"4"}>
-              <GitHubIcon width={remToPx(2)} height={remToPx(2)} />
-              GitHub
-            </Flex>
+    <MaxWidthWrapper>
+      <nav className="p-4">
+        <div className="flex flex-row">
+          <Filler />
+          <Link
+            href="https://github.com/ayuthmang/tis-620-decode-web"
+            className="flex flex-row gap-4 bg-yellow-400"
+          >
+            <GitHubIcon width={remToPx(2)} height={remToPx(2)} />
+            <span className="inline-block">GitHub</span>
           </Link>
-        </Flex>
-      </Container>
-    </Nav>
+        </div>
+      </nav>
+    </MaxWidthWrapper>
   );
 }
 
-const Nav = styled.nav`
-  height: var(--header-height);
-`;
+function Filler() {
+  return <div className="flex-grow" />;
+}

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Sarabun } from "next/font/google";
-
-import "@/app/styles/reset.css";
 import "@/app/styles/globals.css";
 import "@radix-ui/themes/styles.css";
 import Header from "@/components/Header";
