@@ -1,31 +1,27 @@
 "use client";
 
-import styled from "@emotion/styled";
-import { Container, Flex } from "@radix-ui/themes";
 import Link from "@/components/Link";
-import { GitHubIcon } from "./Icons";
-import { remToPx } from "@/utils/pixel-to-rem";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 
 export default function Header() {
   return (
-    <MaxWidthWrapper>
-      <nav className="p-4">
+    <nav
+      className="p-4"
+      style={{
+        height: "var(--header-height)",
+      }}
+    >
+      <MaxWidthWrapper>
         <div className="flex flex-row">
-          <Filler />
+          <div className="flex-grow" />
           <Link
             href="https://github.com/ayuthmang/tis-620-decode-web"
-            className="flex flex-row gap-4 bg-yellow-400"
+            className="flex flex-row gap-4"
           >
-            <GitHubIcon width={remToPx(2)} height={remToPx(2)} />
             <span className="inline-block">GitHub</span>
           </Link>
         </div>
-      </nav>
-    </MaxWidthWrapper>
+      </MaxWidthWrapper>
+    </nav>
   );
-}
-
-function Filler() {
-  return <div className="flex-grow" />;
 }

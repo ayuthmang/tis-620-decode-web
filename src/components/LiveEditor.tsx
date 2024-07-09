@@ -3,7 +3,7 @@
 import { useEditor } from "@/hooks/use-editor";
 import { useTis620 } from "@/hooks/use-tis-620";
 import * as Label from "@radix-ui/react-label";
-import { Flex, TextArea } from "@radix-ui/themes";
+import { TextArea } from "@radix-ui/themes";
 import React from "react";
 import { MaxWidthWrapper } from "./MaxWidthWrapper";
 
@@ -24,34 +24,32 @@ export function LiveEditor() {
   }
 
   return (
-    <MaxWidthWrapper>
-      <div className="flex h-full w-full items-center justify-center bg-green-500">
-        <div className="flex h-full flex-1 flex-row gap-4">
-          <div className="flex flex-1 flex-col gap-2">
-            <Label.Root htmlFor="input">TIS-620 Input</Label.Root>
-            <TextArea
-              id="input"
-              name="input"
-              placeholder="Example: ÊÇÑÊ´Õ"
-              value={input}
-              onChange={handleOnInputChange}
-              spellCheck={false}
-              autoFocus
-              className="h-full w-full"
-            />
-          </div>
-          <div className="flex flex-1 flex-col gap-2">
-            <Label.Root htmlFor="output">UTF-8 Output</Label.Root>
-            <TextArea
-              id="output"
-              name="output"
-              placeholder="สวัสดี"
-              value={output}
-              onChange={handleOnOutputChange}
-              spellCheck={false}
-              className="h-full w-full"
-            />
-          </div>
+    <MaxWidthWrapper className="h-full p-4">
+      <div className="flex h-full flex-1 flex-row gap-4">
+        <div className="flex flex-1 flex-col gap-2">
+          <Label.Root htmlFor="input">TIS-620 Input</Label.Root>
+          <TextArea
+            id="input"
+            name="input"
+            placeholder="Example: ÊÇÑÊ´Õ"
+            value={input}
+            onChange={handleOnInputChange}
+            spellCheck={false}
+            autoFocus
+            className="h-full"
+          />
+        </div>
+        <div className="flex flex-1 flex-col gap-2">
+          <Label.Root htmlFor="output">UTF-8 Output</Label.Root>
+          <TextArea
+            id="output"
+            name="output"
+            placeholder="สวัสดี"
+            value={output}
+            onChange={handleOnOutputChange}
+            spellCheck={false}
+            className="h-full"
+          />
         </div>
       </div>
     </MaxWidthWrapper>
