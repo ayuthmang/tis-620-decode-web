@@ -25,9 +25,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={sarabun.className} suppressHydrationWarning>
         <Providers>
-          <Header />
-          {children}
-          <Footer />
+          <div className="flex h-full flex-col">
+            <Header  />
+            <div className="flex-shrink-0 flex-grow-[3] basis-0">
+              {children}
+            </div>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

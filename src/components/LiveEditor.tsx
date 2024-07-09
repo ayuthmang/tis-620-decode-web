@@ -37,6 +37,7 @@ export function LiveEditor() {
             spellCheck={false}
             autoFocus
             className="h-full"
+
           />
         </div>
         <div className="flex flex-1 flex-col gap-2">

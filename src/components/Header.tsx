@@ -2,11 +2,12 @@
 
 import Link from "@/components/Link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
+import { twMerge } from "tailwind-merge";
 
-export default function Header() {
+export default function Header({ className }: { className?: string }) {
   return (
     <nav
-      className="p-4"
+      className={twMerge("p-4", className)}
       style={{
         height: "var(--header-height)",
       }}
