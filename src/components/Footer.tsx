@@ -1,11 +1,10 @@
-import { Box, Flex, Text } from "@radix-ui/themes";
+import { Text } from "@radix-ui/themes";
+import { twMerge } from "tailwind-merge";
 
-export default function Footer() {
+export default function Footer({ className }: { className?: string }) {
   return (
-    <Flex align="center" justify="center" p="4">
-      <Box>
-        <Text>Made with ❤️ by @ayuthmang</Text>
-      </Box>
-    </Flex>
+    <div className={twMerge("flex items-center justify-center p-4", className)}>
+      <Text>Made with ❤️ by @ayuthmang</Text>
+    </div>
   );
 }

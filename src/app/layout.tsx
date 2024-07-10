@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Sarabun } from "next/font/google";
-import { Theme, ThemePanel } from "@radix-ui/themes";
-
-import "@/app/styles/reset.css";
 import "@/app/styles/globals.css";
 import "@radix-ui/themes/styles.css";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { Providers } from "./providers";
 
 const sarabun = Sarabun({
   weight: ["400", "500", "600", "700"],
@@ -24,9 +24,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={sarabun.className} suppressHydrationWarning>
-        <Theme id="radix-theme-root" appearance="dark">
-          {children}
-        </Theme>
+        <Providers>
+          <div className="flex h-full flex-col">
+            <Header  />
+            <div className="flex-shrink-0 flex-grow-[3] basis-0">
+              {children}
+            </div>
+            <Footer />
+          </div>
+        </Providers>
       </body>
     </html>
   );
