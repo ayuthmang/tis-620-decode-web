@@ -1,21 +1,28 @@
-import styled from "@emotion/styled";
-import { Container, Flex, Link } from "@radix-ui/themes";
+"use client";
 
-export default function Header() {
+import Link from "@/components/Link";
+import MaxWidthWrapper from "./MaxWidthWrapper";
+import { twMerge } from "tailwind-merge";
+
+export default function Header({ className }: { className?: string }) {
   return (
-    <Nav>
-      <Container p="4">
-        <Flex align="center" justify={"center"}>
-          <Flex flexGrow="1" />
-          <Link href="https://github.com/ayuthmagn/tis-620-decode-web">
-            GitHub
+    <nav
+      className={twMerge("p-4", className)}
+      style={{
+        height: "var(--header-height)",
+      }}
+    >
+      <MaxWidthWrapper>
+        <div className="flex flex-row">
+          <div className="flex-grow" />
+          <Link
+            href="https://github.com/ayuthmang/tis-620-decode-web"
+            className="flex flex-row gap-4"
+          >
+            <span className="inline-block">GitHub</span>
           </Link>
-        </Flex>
-      </Container>
-    </Nav>
+        </div>
+      </MaxWidthWrapper>
+    </nav>
   );
 }
-
-const Nav = styled.nav`
-  height: 60px;
-`;
