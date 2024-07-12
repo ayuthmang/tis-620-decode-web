@@ -1,7 +1,8 @@
 import { LiveEditor } from "@/components/LiveEditor";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "TIS-620 Decode Web",
+export const metadata: Metadata = {
+  title: "TIS-620 Decode Online",
   description: "Decode TIS-620 to UTF-8 online",
 };
 
