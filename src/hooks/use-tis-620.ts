@@ -1,6 +1,6 @@
 import iconv from "iconv-lite";
 
-export function useTis620() {
+export function useTIS620() {
   function utf8ToTis620(utf8: string) {
     return iconv.encode(utf8, "tis-620").toString("binary");
   }
