@@ -10,8 +10,8 @@ export default function Link(props: LinkProps) {
   const { href, children } = props;
 
   return (
-    <NextLink passHref href={href}>
-      <RadixLink.Link {...props} asChild>{children}</RadixLink.Link>
-    </NextLink>
+    <RadixLink.Link asChild {...props}>
+      <NextLink href={href}>{children}</NextLink>
+    </RadixLink.Link>
   );
 }
