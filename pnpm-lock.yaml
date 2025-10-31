@@ -32,9 +32,6 @@ importers:
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
-      tis-620-decode-web:
-        specifier: 'link:'
-        version: 'link:'
     devDependencies:
       '@testing-library/dom':
         specifier: ^10.4.1
