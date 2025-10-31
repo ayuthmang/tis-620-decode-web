@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "@/components/Link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 
@@ -8,12 +6,15 @@ export default function Header({ className }: { className?: string }) {
     <nav className={className}>
       <MaxWidthWrapper>
         <div className="flex flex-row py-4">
+          <Link className="text-decoration-line font-extrabold" href="/">
+            Home
+          </Link>
           <div className="flex-grow" />
           <Link
             href="https://github.com/ayuthmang/tis-620-decode-web"
-            className="flex flex-row gap-4"
+            target="_blank"
           >
-            <span className="inline-block">GitHub</span>
+            GitHub
           </Link>
         </div>
       </MaxWidthWrapper>
