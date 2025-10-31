@@ -1,5 +1,31 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## TIS-620 Decode Web
+
+Online TIS-620 decode and encode.
+
+### Project Story
+
+When I was young, I wrote a diary in Notepad on Windows XP. Most of the characters were in Thai.
+
+Recently, I had a change to recover my old external hard drive and found that file.
+I was unable to read those characters. I researched online and discoverred it was a encoding issue.
+
+To give a concrete picture, here is an eample:
+
+TIS-620 input: "ÊÇÑÊ´Õ¤ÃÑº"
+UTF-8 output: "สวัสดีครับ"
+
+The issue is that the old Notepad saved my Thai characters with TIS-620 encoding, but modern Notepad read files using UTF-8 by default.
+
+I created this project to help myself migrate that diary content to modern UTF-8.
+
+## Technology Stack
+
+- Next.js
+- Radix UI
+- Taildin CSS
+
 ## Getting Started
 
 First, run the development server:
