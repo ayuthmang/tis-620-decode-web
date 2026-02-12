@@ -8,8 +8,8 @@ Online TIS-620 decode and encode.
 
 When I was young, I wrote a diary in Notepad on Windows XP. Most of the characters were in Thai.
 
-Recently, I had a change to recover my old external hard drive and found that file.
-I was unable to read those characters. I researched online and discoverred it was a encoding issue.
+Recently, I had a chance to recover my old external hard drive and found that file.
+I was unable to read those characters. I researched online and discovered it was an encoding issue.
 
 To give a concrete picture, here is an eample:
 
@@ -24,7 +24,7 @@ I created this project to help myself migrate that diary content to modern UTF-8
 
 - Next.js
 - Radix UI
-- Taildin CSS
+- Tailwind CSS
 
 ## Getting Started
 
